@@ -10,6 +10,9 @@
         display: block;
         box-sizing: border-box;
       }
+      .image-wrapper {
+        padding-top: 30vh;
+      }
       .image--gallery {
         border: none;
         height: 200px;
@@ -17,6 +20,7 @@
         position: relative;
         box-shadow: 16px 14px 0 0px #FFFFFF, 16px 14px 0 2px #1A09FF;
         margin:30px;
+        float: left;
       }
       .image--modal {
         width: 50%;
@@ -45,15 +49,17 @@
       <template is="dom-repeat" items="{{response.records}}">
         <!-- <p>{{item.title}}</p>
         <p>{{item.description}}</p> -->
+        <div class='image-wrapper'>
           <img class='image--gallery' on-click="toggleModal" src="{{item.primaryimageurl}}">
-          <paper-dialog id="artModal" class="modal" horizontal-align="left" vertical-align="top">
-            <img class='image--modal' src="{{item.primaryimageurl}}">
-            <h2>{{item.title}}</h2>
-            <p>{{item.description}}</p>
-            <div class="buttons">
-              <paper-button dialog-dismiss>Cancel</paper-button>
-            </div>
-          </paper-dialog>
+        </div>
+        <paper-dialog id="artModal" class="modal" horizontal-align="left" vertical-align="top">
+          <img class='image--modal' src="{{item.primaryimageurl}}">
+          <h2>{{item.title}}</h2>
+          <p>{{item.description}}</p>
+          <div class="buttons">
+            <paper-button dialog-dismiss>Cancel</paper-button>
+          </div>
+        </paper-dialog>
       </template>
   </div>
   </template>
@@ -88,7 +94,7 @@
           }
       },
       toggleModal: function(event){
-        event.target.nextElementSibling.open();
+        event.target.parentElement.nextElementSibling.open();
       },
       resultsChanged: function(r) {
 
