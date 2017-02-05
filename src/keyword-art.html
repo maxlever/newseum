@@ -59,7 +59,7 @@
       }
       .buttons {
         position: absolute !important;
-        top: 20px;
+        top: 55vh;
       }
     </style>
     <iron-ajax
@@ -70,25 +70,21 @@
       last-response="{{response}}"
     ></iron-ajax>
     <div>
-      <!-- <h4>[[keyword]]</h4>
-      <p>[[response.info.pages]]</p> -->
       <template is="dom-repeat" items="{{response.records}}">
-        <!-- <p>{{item.title}}</p>
-        <p>{{item.description}}</p> -->
         <div class='image-wrapper'>
           <img class='image--gallery' on-click="toggleModal" src="{{item.primaryimageurl}}">
         </div>
         <paper-dialog id="artModal" class="modal" horizontal-align="left" vertical-align="top">
           <img class='image--modal' src="{{item.primaryimageurl}}">
           <div class='modal-text'>
-            <h2>{{item.title}}</h2>
+            <h2><a href={{item.url}}>{{item.title}}</a></h2>
             <p>{{item.description}}</p>
             <div class='themeatic'>Most Thematically Similar</div>
-            <h2>{{newstitle}}</h2>
+            <h2><a href={{newsurl}}>{{newstitle}}</a></h2>
             <p>{{newsdesc}}</p>
           </div>
           <div class="buttons">
-            <paper-button dialog-dismiss>BACK</paper-button>
+            <paper-button dialog-dismiss>⬅ BACK</paper-button>
           </div>
         </paper-dialog>
       </template>
