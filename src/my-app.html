@@ -22,7 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="news-list.html">
 
 
-<link href="https://fonts.googleapis.com/css?family=Noto+Serif|Roboto+Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700|Roboto+Mono" rel="stylesheet">
 
 <dom-module id="my-app">
   <template>
@@ -30,14 +30,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .logo {
         top: 90px;
         position: absolute;
-        right: 0;
-        width: 70vw;
+        right: 214px;
+        width: 48vw;
         max-width: 800px;
         z-index: -1;
+      }
+      .tag-line {
+        font-family: "Roboto Mono";
+        font-size: 19px;
+        top: 95px;
+        left: 20px;
+        position: absolute;
       }
     </style>
 
     <news-list class="image-gallery"></news-list>
+    <p class="tag-line">Connecting art with current events</p>
     <img class="logo" src="../images/arnhem.svg" alt="newseum">
   </template>
 

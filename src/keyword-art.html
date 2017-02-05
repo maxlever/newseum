@@ -23,6 +23,11 @@
         float: left;
         transform: rotate(90deg);
         transform-origin: right top;
+        cursor: pointer;
+        transition: 0.2s all linear;
+      }
+      .image--gallery:hover {
+        box-shadow: 16px 14px 0 2px #1A09FF;
       }
       .image--modal {
         width: 42%;
@@ -37,7 +42,7 @@
         width: 100%;
         margin: 0;
         box-shadow: none;
-        transform: rotate(90deg) translateY(-50vh);
+        transform: rotate(90deg) translateY(-20vh);
         transform-origin: right top;
         display: flex;
         align-items: center;
@@ -50,16 +55,42 @@
       }
       .modal-text h2 {
         white-space: normal !important;
+        font-family:'Noto Serif', serif !important;
+        font-weight:700 !important;
+        color:#323132 ;
+        font-size:16pt;
+      }
+      .modal-text a {
+        text-decoration: none;
+        color: #323132;
+        border-bottom: 0px solid #fffF00;
+        transition: all 0.25s linear;
+      }
+      .modal-text a:hover {
+        border-bottom: 6px solid #fffF00;
+      }
+      p {
+        font-family:'Noto Serif', serif;
+        font-weight:400;
+        font-size: 10pt;
+        color:#323132 ;
       }
       .themeatic {
-        margin: 0 auto;
+        text-align: center;
+      }
+      .themeatic span {
+        margin: 20px auto;
         padding: 10px;
         border: 1px solid #1A09FF;
-        width: inherit;
+        font-family: "Roboto Mono";
+        color: #1A09FF;
+        text-transform: uppercase;
+        display: inline-block;
       }
       .buttons {
         position: absolute !important;
-        top: 55vh;
+        top: 29vh;
+        cursor: pointer;
       }
     </style>
     <iron-ajax
@@ -79,7 +110,7 @@
           <div class='modal-text'>
             <h2><a href={{item.url}}>{{item.title}}</a></h2>
             <p>{{item.description}}</p>
-            <div class='themeatic'>Most Thematically Similar</div>
+            <div class='themeatic'><span>Most Similar Story</span></div>
             <h2><a href={{newsurl}}>{{newstitle}}</a></h2>
             <p>{{newsdesc}}</p>
           </div>
@@ -135,7 +166,7 @@
           this.results = r;
       },
       computeParams: function (apikey, keyword) {
-          return {apikey: apikey, keyword: keyword, size: 5, hasimage: 1};
+          return {apikey: apikey, keyword: keyword, size: 3, hasimage: 1};
       },
       computeWorks: function (records) {
           this.works = records.filter(function (item) {
