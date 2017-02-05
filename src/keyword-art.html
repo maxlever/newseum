@@ -1,4 +1,6 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+
 <!-- Gets top 5 art pieces relevant to given keyword -->
 <dom-module id="keyword-art">
 
@@ -7,6 +9,41 @@
       :host {
         display: block;
         box-sizing: border-box;
+      }
+      .image-wrapper {
+        padding-top: 30vh;
+      }
+      .image--gallery {
+        border: none;
+        height: 200px;
+        width: inherit;
+        position: relative;
+        box-shadow: 16px 14px 0 0px #FFFFFF, 16px 14px 0 2px #1A09FF;
+        margin:30px;
+        float: left;
+      }
+      .image--modal {
+        width: 45%;
+        height: auto;
+        vertical-align: middle;
+      }
+      .modal {
+        background-color: rgba(255,255,255,0.9);
+        max-height: none !important;
+        max-width: none !important;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+      }
+      .modal-text {
+        width: 43%;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .modal-text h2 {
+        white-space: normal !important;
       }
     </style>
     <iron-ajax
@@ -17,12 +54,24 @@
       last-response="{{response}}"
     ></iron-ajax>
     <div>
-      <h4>[[keyword]]</h4>
-      <p>[[response.info.pages]]</p>
+      <!-- <h4>[[keyword]]</h4>
+      <p>[[response.info.pages]]</p> -->
       <template is="dom-repeat" items="{{response.records}}">
-        <p>{{item.title}}</p>
-        <p>{{item.description}}</p>
-        <img src="{{item.primaryimageurl}}">
+        <!-- <p>{{item.title}}</p>
+        <p>{{item.description}}</p> -->
+        <div class='image-wrapper'>
+          <img class='image--gallery' on-click="toggleModal" src="{{item.primaryimageurl}}">
+        </div>
+        <paper-dialog id="artModal" class="modal" horizontal-align="left" vertical-align="top">
+          <img class='image--modal' src="{{item.primaryimageurl}}">
+          <div class='modal-text'>
+            <h2>{{item.title}}</h2>
+            <p>{{item.description}}</p>
+          </div>
+          <div class="buttons">
+            <paper-button dialog-dismiss>Cancel</paper-button>
+          </div>
+        </paper-dialog>
       </template>
   </div>
   </template>
@@ -56,6 +105,9 @@
               observer: "resultsChanged"
           }
       },
+      toggleModal: function(event){
+        event.target.parentElement.nextElementSibling.open();
+      },
       resultsChanged: function(r) {
 
       },
@@ -63,7 +115,7 @@
           this.results = r;
       },
       computeParams: function (apikey, keyword) {
-          return {apikey: apikey, keyword: keyword, size: 5};
+          return {apikey: apikey, keyword: keyword, size: 5, hasimage: 1};
       },
       responseChanged: function (resp) {
           if (resp.info) { this.computeResults(resp.info.totalrecords); };

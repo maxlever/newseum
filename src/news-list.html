@@ -18,8 +18,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
+      }
+      #newsList {
+        overflow: hidden !important;
+        height: 100vh;
       }
     </style>
 
@@ -30,15 +33,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       params='{"count":"5"}'
       handle-as="json"
       last-response="{{ajaxResponse}}"
-    ></iron-ajax>
-    <iron-scroll-threshold on-lower-threshold="loadMoreData">
-      <iron-list items=[[ajaxResponse.value]] as="newsItem">
-        <template>
-          <keyword-analysis news-item="[[newsItem]]"></keyword-analysis>
-        </template>
-      </iron-list>
-    </iron-scroll-threshold>
+      on-response="resizeList"
 
+    ></iron-ajax>
+    <iron-list id="newsList" items=[[ajaxResponse.value]] as="newsItem">
+      <template>
+        <keyword-analysis news-item="[[newsItem]]" ></keyword-analysis>
+      </template>
+    </iron-list>
 
   </template>
 
@@ -50,10 +52,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object
         }
       },
-      loadMoreData: function() {
-        asyncStuff(function done() {
-          ironScrollTheshold.clearTriggers();
-        });
+      resizeList: function() {
+        this.$.newsList.notifyResize();
       }
     });
   </script>
