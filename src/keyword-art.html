@@ -70,7 +70,7 @@
       last-response="{{response}}"
     ></iron-ajax>
     <div>
-      <template is="dom-repeat" items="{{response.records}}">
+      <template is="dom-repeat" items="{{works}}">
         <div class='image-wrapper'>
           <img class='image--gallery' on-click="toggleModal" src="{{item.primaryimageurl}}">
         </div>
@@ -118,6 +118,11 @@
               type: Number,
               notify: true,
               observer: "resultsChanged"
+          },
+          works: {
+              value: [],
+              type: Array,
+              notify: true
           }
       },
       toggleModal: function(event){
@@ -132,8 +137,16 @@
       computeParams: function (apikey, keyword) {
           return {apikey: apikey, keyword: keyword, size: 5, hasimage: 1};
       },
+      computeWorks: function (records) {
+          this.works = records.filter(function (item) {
+              return item.primaryimageurl !== null;
+          });
+      },
       responseChanged: function (resp) {
-          if (resp.info) { this.computeResults(resp.info.totalrecords); };
+          if (resp.info) {
+              this.computeResults(resp.info.totalrecords);
+              this.computeWorks(resp.records);
+           };
       }
   });
   </script>
