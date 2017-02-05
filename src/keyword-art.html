@@ -103,7 +103,7 @@
           this.results = r;
       },
       computeParams: function (apikey, keyword) {
-          return {apikey: apikey, keyword: keyword, size: 5};
+          return {apikey: apikey, keyword: keyword, size: 5, hasimage: 1};
       },
       responseChanged: function (resp) {
           if (resp.info) { this.computeResults(resp.info.totalrecords); };
