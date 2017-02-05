@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view1">
@@ -21,17 +22,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>
+    <iron-ajax
+      auto
+      url="https://api.cognitive.microsoft.com/bing/v5.0/news"
+      headers='{"Ocp-Apim-Subscription-Key": "c00902fbd2ec484d982b3a9c77f58616"}'
+      handle-as="json"
+      last-response="{{ajaxResponse}}"
+    ></iron-ajax>
+    <template is="dom-repeat" items="[[ajaxResponse.value]]">
+      <h3>{{item.name}}</h3>
+      <p>{{item.description}}</p>
+    </template>
   </template>
 
   <script>
     Polymer({
-      is: 'my-view1',
+      is: 'my-view1'
     });
   </script>
 </dom-module>
