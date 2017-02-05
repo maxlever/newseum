@@ -21,9 +21,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="my-icons.html">
 <link rel="import" href="news-list.html">
 
+
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif|Roboto+Mono" rel="stylesheet">
+
 <dom-module id="my-app">
   <template>
+
+    <style>
+      .logo {
+        top: 0;
+        position: absolute;
+        right: 0;
+        width: 70vw;
+      }
+    </style>
+
     <news-list></news-list>
+    <img class="logo" src="../images/newseumlogo.svg" alt="newseum">
   </template>
 
   <script>
