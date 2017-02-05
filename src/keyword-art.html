@@ -17,11 +17,11 @@
       last-response="{{response}}"
     ></iron-ajax>
     <div>
-      <h4>[[keyword]]</h4>
-      <p>[[response.info.pages]]</p>
+      <!-- <h4>[[keyword]]</h4>
+      <p>[[response.info.pages]]</p> -->
       <template is="dom-repeat" items="{{response.records}}">
-        <p>{{item.title}}</p>
-        <p>{{item.description}}</p>
+        <!-- <p>{{item.title}}</p>
+        <p>{{item.description}}</p> -->
         <img src="{{item.primaryimageurl}}">
       </template>
   </div>
