@@ -10,13 +10,17 @@
         display: block;
         box-sizing: border-box;
       }
-      img {
+      .image--gallery {
         border: none;
         height: 200px;
         width: inherit;
         position: relative;
         box-shadow: 16px 14px 0 0px #FFFFFF, 16px 14px 0 2px #1A09FF;
         margin:30px;
+      }
+      .image--modal {
+        width: 50%;
+        height: auto;
       }
       .modal {
         background-color: rgba(255,255,255,0.9);
@@ -41,12 +45,11 @@
       <template is="dom-repeat" items="{{response.records}}">
         <!-- <p>{{item.title}}</p>
         <p>{{item.description}}</p> -->
-          <img on-click="toggleModal" src="{{item.primaryimageurl}}">
+          <img class='image--gallery' on-click="toggleModal" src="{{item.primaryimageurl}}">
           <paper-dialog id="artModal" class="modal" horizontal-align="left" vertical-align="top">
-            <h2>Header</h2>
-            <paper-dialog-scrollable>
-              Lorem ipsum...
-            </paper-dialog-scrollable>
+            <img class='image--modal' src="{{item.primaryimageurl}}">
+            <h2>{{item.title}}</h2>
+            <p>{{item.description}}</p>
             <div class="buttons">
               <paper-button dialog-dismiss>Cancel</paper-button>
             </div>
