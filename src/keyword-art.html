@@ -23,8 +23,9 @@
         float: left;
       }
       .image--modal {
-        width: 50%;
+        width: 45%;
         height: auto;
+        vertical-align: middle;
       }
       .modal {
         background-color: rgba(255,255,255,0.9);
@@ -34,6 +35,15 @@
         width: 100%;
         margin: 0;
         box-shadow: none;
+      }
+      .modal-text {
+        width: 43%;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .modal-text h2 {
+        white-space: normal !important;
       }
     </style>
     <iron-ajax
@@ -54,8 +64,10 @@
         </div>
         <paper-dialog id="artModal" class="modal" horizontal-align="left" vertical-align="top">
           <img class='image--modal' src="{{item.primaryimageurl}}">
-          <h2>{{item.title}}</h2>
-          <p>{{item.description}}</p>
+          <div class='modal-text'>
+            <h2>{{item.title}}</h2>
+            <p>{{item.description}}</p>
+          </div>
           <div class="buttons">
             <paper-button dialog-dismiss>Cancel</paper-button>
           </div>
