@@ -12,6 +12,8 @@
         border: 1px solid blue;
         height: 200px;
         width: inherit;
+        position: relative;
+        box-shadow: 0px 20px 0 10px hsl(0, 0%, 100%), 0px 20px 0 15px hsl(219, 100%, 49%);
       }
     </style>
     <iron-ajax
@@ -27,7 +29,7 @@
       <template is="dom-repeat" items="{{response.records}}">
         <!-- <p>{{item.title}}</p>
         <p>{{item.description}}</p> -->
-        <img src="{{item.primaryimageurl}}">
+          <img src="{{item.primaryimageurl}}">
       </template>
   </div>
   </template>
