@@ -25,7 +25,7 @@
         transform-origin: right top;
       }
       .image--modal {
-        width: 45%;
+        width: 42%;
         height: auto;
         vertical-align: middle;
       }
@@ -37,8 +37,10 @@
         width: 100%;
         margin: 0;
         box-shadow: none;
-        transform: rotate(90deg);
+        transform: rotate(90deg) translateY(-50vh);
         transform-origin: right top;
+        display: flex;
+        align-items: center;
       }
       .modal-text {
         width: 43%;
@@ -48,6 +50,16 @@
       }
       .modal-text h2 {
         white-space: normal !important;
+      }
+      .themeatic {
+        margin: 0 auto;
+        padding: 10px;
+        border: 1px solid #1A09FF;
+        width: inherit;
+      }
+      .buttons {
+        position: absolute !important;
+        top: 20px;
       }
     </style>
     <iron-ajax
@@ -71,9 +83,12 @@
           <div class='modal-text'>
             <h2>{{item.title}}</h2>
             <p>{{item.description}}</p>
+            <div class='themeatic'>Most Thematically Similar</div>
+            <h2>{{newstitle}}</h2>
+            <p>{{newsdesc}}</p>
           </div>
           <div class="buttons">
-            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button dialog-dismiss>BACK</paper-button>
           </div>
         </paper-dialog>
       </template>

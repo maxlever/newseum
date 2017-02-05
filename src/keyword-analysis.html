@@ -19,7 +19,7 @@
     <div>
       <!-- <h3>{{newsItem.name}} -- {{keyword}}</h3>
       <p>{{newsItem.description}}</p> -->
-      <keyword-art keyword="{{keyword}}" results="{{r}}"></keyword-art>
+      <keyword-art keyword="{{keyword}}" newstitle=[[newsItem.name]] newsdesc=[[newsItem.description]] results="{{r}}"></keyword-art>
     </div>
   </template>
 
@@ -29,10 +29,6 @@
       properties: {
         newsItem: {
           type: Object,
-          value: {
-            name: "There is no name",
-            description: "No description"
-          },
           observer: "computeBody"
         },
         body: {
