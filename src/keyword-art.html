@@ -181,15 +181,18 @@
               if (item.title) {
                   item.title = item.title.substring(0, 50) + '...';
               }
-              if (item.description) {
-                  item.description = item.description.substring(0, 100) + '...';
-              }
               return item.primaryimageurl !== null;
           });
       },
       responseChanged: function (resp) {
-          if (resp.info) {
+          if (resp.info && resp.records) {
               this.computeResults(resp.info.totalrecords);
+              var records = resp.records.map(function (rec) {
+                  if (rec.description !== null) {
+                    rec.description = rec.description.substring(0, 100) + '...';
+                }
+                return rec;
+              })
               this.computeWorks(resp.records);
            };
       }
