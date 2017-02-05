@@ -8,9 +8,10 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-list/iron-list.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="keyword-analysis.html">
 
 <dom-module id="my-view1">
   <template>
@@ -29,15 +30,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handle-as="json"
       last-response="{{ajaxResponse}}"
     ></iron-ajax>
-    <template is="dom-repeat" items="[[ajaxResponse.value]]">
-      <h3>{{item.name}}</h3>
-      <p>{{item.description}}</p>
-    </template>
+    <iron-list items=[[ajaxResponse.value]] as="newsItem">
+      <template>
+        <keyword-analysis news-item="[[newsItem]]"></keyword-analysis>
+      </template>
+    </iron-list>
+
   </template>
 
   <script>
     Polymer({
-      is: 'my-view1'
+      is: 'my-view1',
+      properties: {
+        ajaxResponse: {
+          type: Object
+        }
+      }
     });
   </script>
 </dom-module>
