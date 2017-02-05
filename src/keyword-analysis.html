@@ -1,0 +1,32 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="keyword-analysis">
+  <template>
+    <div>
+      <h3>{{newsItem.name}}</h3>
+      <p>{{newsItem.description}}</p>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'keyword-analysis',
+      properties: {
+        newsItem: {
+          type: Object,
+          name: 'There is no name',
+          description: 'No description'
+        }
+      },
+
+      observers: [
+        'itemChange(newsItem)'
+      ],
+
+      itemChange: function(newsItem) {
+        this.newsItem = newsItem;
+      }
+    });
+  </script>
+</dom-module>
