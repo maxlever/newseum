@@ -1,0 +1,67 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="keyword-analysis">
+  <template>
+    <iron-ajax
+        id="ajax"
+        url="https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases"
+        headers='{"Ocp-Apim-Subscription-Key": "e230cb7cf4f342329f81c98e621ad4df"}'
+        handle-as="json"
+        content-type="application/json"
+        method="POST"
+        body="{{body}}"
+        last-response="{{keywords}}">
+        >
+    </iron-ajax>
+    <div>
+      <h3>{{newsItem.name}}</h3>
+      <p>{{newsItem.description}}</p>
+      <template is="dom-repeat" items="[[keywords.documents]]">
+        <div>
+          <p>{{item.keyPhrases}}</p>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "keyword-analysis",
+      properties: {
+        newsItem: {
+          type: Object,
+          value: {
+            name: "There is no name",
+            description: "No description"
+          },
+          observer: "computeBody"
+        },
+        body: {
+          type: Object
+        }
+      },
+
+      observers: [
+        'itemChange(newsItem)'
+      ],
+
+      computeBody: function(newsItem) {
+        this.body = {
+          documents: [{
+            language: "en",
+            id: "string",
+            text: newsItem.description
+          }]
+        }
+
+        this.$.ajax.generateRequest();
+      },
+
+      itemChange: function(newsItem) {
+        this.newsItem = newsItem;
+      }
+    });
+  </script>
+</dom-module>
