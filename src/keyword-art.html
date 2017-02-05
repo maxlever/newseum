@@ -154,10 +154,18 @@
               value: [],
               type: Array,
               notify: true
+          },
+          newsdesc: {
+              type: String,
+              notify: true,
+              observer: "newsdescChanged"
           }
       },
       toggleModal: function(event){
         event.target.parentElement.nextElementSibling.open();
+      },
+      newsdescChanged: function (n) {
+          this.newsdescChanged = n.substring(0,100) + '...';
       },
       resultsChanged: function(r) {
 
@@ -170,6 +178,12 @@
       },
       computeWorks: function (records) {
           this.works = records.filter(function (item) {
+              if (item.title) {
+                  item.title = item.title.substring(0, 50) + '...';
+              }
+              if (item.description) {
+                  item.description = item.description.substring(0, 100) + '...';
+              }
               return item.primaryimageurl !== null;
           });
       },
