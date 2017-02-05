@@ -42,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     ></iron-ajax>
     <iron-list id="newsList" items=[[ajaxResponse.value]] as="newsItem">
       <template>
-        <keyword-analysis news-item="[[newsItem]]" ></keyword-analysis>
+        <keyword-analysis news-item="[[newsItem]]" on-r-changed="resizeList"></keyword-analysis>
       </template>
     </iron-list>
 
