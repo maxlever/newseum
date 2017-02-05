@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="keyword-art.html">
 
 <dom-module id="keyword-analysis">
   <template>
@@ -16,13 +17,9 @@
         >
     </iron-ajax>
     <div>
-      <h3>{{newsItem.name}}</h3>
+      <h3>{{newsItem.name}} -- {{keyword}}</h3>
       <p>{{newsItem.description}}</p>
-      <template is="dom-repeat" items="[[keywords.documents]]">
-        <div>
-          <p>{{item.keyPhrases}}</p>
-        </div>
-      </template>
+      <keyword-art keyword="{{keyword}}" results="{{r}}"></keyword-art>
     </div>
   </template>
 
@@ -40,7 +37,26 @@
         },
         body: {
           type: Object
-        }
+      },
+      keywords: {
+          value: {},
+          notify: true,
+          observer: "keywordsChanged"
+      },
+      keyword: {
+          type: String,
+          notify: true
+      },
+      keywordIndex: {
+          value: 0,
+          type: Number,
+          notify: true
+      },
+      r: {
+          type: Number,
+          notify: true,
+          observer: "changeKeyword"
+      }
       },
 
       observers: [
@@ -58,10 +74,33 @@
 
         this.$.ajax.generateRequest();
       },
+      keywordsChanged: function (k) {
 
+
+        if (k.documents) {
+            this.computeKeyword(k.documents[0].keyPhrases[this.keywordIndex]);
+        }
+    },
+
+        computeKeyword: function(k){
+            this.keyword = k;
+        },
       itemChange: function(newsItem) {
         this.newsItem = newsItem;
+      },
+      changeKeyword: function(r) {
+        if (this.keywords.documents) {
+                if (this.keywordIndex >= this.keywords.documents[0].keyPhrases.length) {
+                this.keyword = "wild boar";
+            } else {
+                if (r == 0) {
+                    this.keywordIndex += 1;
+                    this.keywordsChanged(this.keywords);
+                }
+            }
+        }
       }
+
     });
   </script>
 </dom-module>

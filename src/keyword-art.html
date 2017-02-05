@@ -21,6 +21,8 @@
       <p>[[response.info.pages]]</p>
       <template is="dom-repeat" items="{{response.records}}">
         <p>{{item.title}}</p>
+        <p>{{item.description}}</p>
+        <img src="{{item.primaryimageurl}}">
       </template>
   </div>
   </template>
@@ -47,13 +49,24 @@
               value: {},
               notify: true,
               observer: "responseChanged"
+          },
+          results: {
+              type: Number,
+              notify: true,
+              observer: "resultsChanged"
           }
+      },
+      resultsChanged: function(r) {
+
+      },
+      computeResults: function(r) {
+          this.results = r;
       },
       computeParams: function (apikey, keyword) {
           return {apikey: apikey, keyword: keyword, size: 5};
       },
-      responseChanged: function () {
-
+      responseChanged: function (resp) {
+          if (resp.info) { this.computeResults(resp.info.totalrecords); };
       }
   });
   </script>
