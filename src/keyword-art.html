@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<!-- Gets top 5 art pieces relevant to given keyword -->
+<dom-module id="keyword-art">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+    </style>
+    <iron-ajax
+      auto
+      url="{{url}}"
+      handle-as="json"
+      params="{{params}}"
+      last-response="{{response}}"
+    ></iron-ajax>
+    <div>
+      <h4>[[keyword]]</h4>
+      <p>[[response.info.pages]]</p>
+      <template is="dom-repeat" items="{{response.records}}">
+        <p>{{item.title}}</p>
+      </template>
+  </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'keyword-art',
+      properties: {
+          apikey: {
+              value: "9c6efbf0-b43e-11e6-a912-5bf7795f06a9",
+              notify: true
+          },
+          keyword: {
+              value: "government",
+              notify: true
+          },
+          url: {
+              value: "http://api.harvardartmuseums.org/object"
+          },
+          params: {
+              computed: "computeParams(apikey, keyword)"
+          },
+          response: {
+              value: {},
+              notify: true,
+              observer: "responseChanged"
+          }
+      },
+      computeParams: function (apikey, keyword) {
+          return {apikey: apikey, keyword: keyword, size: 5};
+      },
+      responseChanged: function () {
+
+      }
+  });
+  </script>
+</dom-module>
