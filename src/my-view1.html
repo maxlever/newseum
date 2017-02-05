@@ -25,16 +25,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <iron-ajax
       auto
-      url="https://api.cognitive.microsoft.com/bing/v5.0/news"
+      url="https://api.cognitive.microsoft.com/bing/v5.0/news/search?"
       headers='{"Ocp-Apim-Subscription-Key": "c00902fbd2ec484d982b3a9c77f58616"}'
+      params='{"count":"5"}'
       handle-as="json"
       last-response="{{ajaxResponse}}"
     ></iron-ajax>
-    <iron-list items=[[ajaxResponse.value]] as="newsItem">
-      <template>
-        <keyword-analysis news-item="[[newsItem]]"></keyword-analysis>
-      </template>
-    </iron-list>
+    <iron-scroll-threshold on-lower-threshold="loadMoreData">
+      <iron-list items=[[ajaxResponse.value]] as="newsItem">
+        <template>
+          <keyword-analysis news-item="[[newsItem]]"></keyword-analysis>
+        </template>
+      </iron-list>
+    </iron-scroll-threshold>
+
 
   </template>
 
@@ -45,6 +49,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         ajaxResponse: {
           type: Object
         }
+      },
+      loadMoreData: function() {
+        asyncStuff(function done() {
+          ironScrollTheshold.clearTriggers();
+        });
       }
     });
   </script>
