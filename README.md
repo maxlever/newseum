@@ -1,4 +1,6 @@
 # [Newseum](https://devpost.com/software/newseum) - _connecting art with current events_
+A Hack@Brown 2017 Project written in 24 hours
+
 ## Inspiration
 We identified our common interests in media and art history, and wanted to find a way to connect them. How might we use art as an entryway to contemporary issues? How might we explore the correlation between breaking news and historical art? These are questions we aimed to answer, all while emphasizing the value and relevance of art history today.
 
