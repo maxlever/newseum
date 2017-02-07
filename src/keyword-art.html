@@ -33,6 +33,7 @@
         width: 42%;
         height: auto;
         vertical-align: middle;
+        margin-right: 20px;
       }
       .modal {
         background-color: rgba(254,255,255,0.9);
@@ -43,9 +44,6 @@
         margin: 0;
         box-shadow: none;
         transform: rotate(90deg);
-        transform-origin: right top;
-        display: flex;
-        align-items: center;
       }
       .modal-text {
         width: 43%;
@@ -91,6 +89,7 @@
         position: absolute !important;
         top: 29vh;
         cursor: pointer;
+        left: -5vw;
       }
     </style>
     <iron-ajax
@@ -106,13 +105,15 @@
           <img class='image--gallery' on-click="toggleModal" src="{{item.primaryimageurl}}">
         </div>
         <paper-dialog id="artModal" class="modal" horizontal-align="left" vertical-align="top">
-          <img class='image--modal' src="{{item.primaryimageurl}}">
-          <div class='modal-text'>
-            <h2><a href={{item.url}}>{{item.title}}</a></h2>
-            <p>{{item.description}}</p>
-            <div class='themeatic'><span>Most Similar Story</span></div>
-            <h2><a href={{newsurl}}>{{newstitle}}</a></h2>
-            <p>{{newsdesc}}</p>
+          <div class='modal-content'>
+            <img class='image--modal' src="{{item.primaryimageurl}}">
+            <div class='modal-text'>
+              <h2><a target='_blank' href={{item.url}}>{{item.title}}</a></h2>
+              <p>{{item.description}}</p>
+              <div class='themeatic'><span>Most Similar Story</span></div>
+              <h2><a target='_blank' href={{newsurl}}>{{newstitle}}</a></h2>
+              <p>{{newsdesc}}</p>
+            </div>
           </div>
           <div class="buttons">
             <paper-button dialog-dismiss>⬅ BACK</paper-button>
